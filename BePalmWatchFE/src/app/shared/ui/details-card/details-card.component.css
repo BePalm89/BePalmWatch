@@ -1,0 +1,85 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.details-container {
+  width: 90%;
+  height: 70vh;
+  border: 1px solid var(--gray-color);
+  border-radius: 1rem;
+  background-size: contain;
+  background-repeat: space;
+  background-position: center;
+  color: var(--white-color);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.details-container h1 {
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-genres {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.details-genres h2,
+.details-language h2,
+.details-homepage h2 {
+  color: var(--gray-color);
+  text-decoration: underline;
+}
+
+.details-genres ul {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.details-container ul li {
+  text-transform: uppercase;
+}
+
+.details-language,
+.details-homepage {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.details-homepage a {
+    text-decoration: underline;
+}
+
+.details-homepage a:hover {
+    color: var(--tertiary-color);
+}
+
+.details-cta  {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.details-container button {
+    background-color: var(--tertiary-color);
+    color: var(--white-color);
+}
+
+.details-container button:hover {
+    background-color: var(--secondary-color); 
+}

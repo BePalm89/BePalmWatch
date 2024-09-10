@@ -1,0 +1,12 @@
+Project:
+    - Http interceptor to avoid to repeat the bearar token
+    - Skeleton
+    - Add a new property on the movie model `isFavorite`: boolen and truck the icon following this value
+    - Add watchlist icon and to do the same of the like icon and isWatchilist property in the movie model
+    - Add trending page
+    - Add coming soon page ( call to BE is called upcoming movies )
+    - Add different languages
+    - Add jest
+    - Check the any type everywehre and see if I can mapped it to Movie and TVSHOW models.
+    - Create a component for book a seat
+    - Create a component for the info so it can be reuse in the details page

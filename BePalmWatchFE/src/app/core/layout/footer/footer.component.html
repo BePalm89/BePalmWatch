@@ -1,0 +1,13 @@
+<footer>
+  <mat-toolbar>
+    <ul>
+      @for(link of FOOTER_LINKS; track link.value) {
+      <li>
+          <a [href]="link.url" target="_blank">
+            <img [src]="link.icon" [alt]="link.value" />
+          </a>
+      </li>
+      }
+    </ul>
+  </mat-toolbar>
+</footer>

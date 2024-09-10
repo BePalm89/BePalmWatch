@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.screen {
+    border: 1px solid var(--tertiary-color);
+    color: var(--tertiary-color);
+    text-transform: uppercase;
+    width: 80%;
+    text-align: center;
+    margin-top: 1rem;
+}

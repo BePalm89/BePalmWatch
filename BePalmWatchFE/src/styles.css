@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gaegu&display=swap");
+
+:root {
+  --black-color: #21201e;
+  --white-color: #fff;
+  --primary-color: #6100c2;
+  --secondary-color: #7900c2;
+  --tertiary-color: #ba76ea;
+  --gray-color: #969696;
+  --free-color: #1ce801;
+  --occupied-color: #F4000B;
+
+
+  --font-family: "Poppins", sans-serif;
+  --font-family-logo: "Gaegu", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.mat-typography {
+  font-family: var(--font-family);
+}
+
+html,
+body {
+  background-color: var(--black-color);
+  height: 100%;
+  font-family: var(--font-family);
+}
+
+a {
+  text-decoration: none;
+  font-family: var(--font-family);
+  color: var(--white-color);
+}
+
+a:visited {
+  color: var(--white-color);
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--white-color);
+}
+.mat-h1,
+.mat-headline-5,
+.mat-typography .mat-h1,
+.mat-typography .mat-headline-5,
+.mat-typography h1,
+.mat-h2,
+.mat-headline-6,
+.mat-typography .mat-h2,
+.mat-typography .mat-headline-6,
+.mat-typography h2,
+.mat-h4,
+.mat-body-1,
+.mat-typography .mat-h4,
+.mat-typography .mat-body-1,
+.mat-typography h4,
+p
+{
+  font-family: var(--font-family);
+}
+
+.mdc-button__label {
+  font-family: var(--font-family) !important;
+  letter-spacing: normal;
+}

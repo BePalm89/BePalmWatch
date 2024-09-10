@@ -1,0 +1,28 @@
+<mat-card class="card" appearance="outlined">
+  <div class="card-img-container">
+    <img [src]="getImageUrl(data.poster_path)" alt="{{ title }}" />
+    <div class="favorite-container" (click)="toggleFavorite(data.id)">
+      <img [src]="getFavoriteIcon()" alt="like" />
+    </div>
+  </div>
+
+  <mat-card-content>
+    <div class="info-container">
+      <h4>{{ title }}</h4>
+      <div class="details-container">
+        <p>{{ releaseYear | year }}</p>
+        @if(data.genres) {
+          <mat-divider vertical></mat-divider>
+          <div class="genres-container">
+            @for (genre of data.genres; track genre) {
+            <p>{{ genre }}</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <a [routerLink]="['/movie', data.id]" [state]="{type: type}"> View More <img src="/assets/icons/right-arrow.png" alt="arrow"/></a>
+  </mat-card-actions>
+</mat-card>

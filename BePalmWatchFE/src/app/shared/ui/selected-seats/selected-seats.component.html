@@ -1,0 +1,17 @@
+@if (selectedSeats.length ) {
+<p>Selected seat:</p>
+<div class="selected-seats">
+  @for( seat of selectedSeats; track seat){
+  <div class="selected-seats-info">
+    <p>
+      Row <span>{{ seat.row }}</span>
+    </p>
+    <p>
+      Seat <span>{{ seat.seat }}</span>
+    </p>
+  </div>
+  }
+</div>
+} @else {
+  <p>Selection of seats ( maximum: 6 )</p>
+}

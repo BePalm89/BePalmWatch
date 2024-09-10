@@ -1,0 +1,4 @@
+<div class="screen">Screen</div>
+@for(row of rows; track row; let ind = $index) {
+    <app-seat-row [rowIndex]="ind"></app-seat-row>
+}

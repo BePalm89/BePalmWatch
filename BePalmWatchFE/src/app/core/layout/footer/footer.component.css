@@ -1,0 +1,32 @@
+footer mat-toolbar ul{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+    align-items: center;
+}
+
+footer  mat-toolbar {
+    background-color: var(--primary-color);
+}
+
+footer mat-toolbar ul li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+footer a  {
+    display: flex;
+    justify-content: center;
+}
+
+footer ul li a img {
+    transition: transform 0.3s ease;
+}
+
+footer ul li a img:hover {
+    transform: scale(1.1) rotate(15deg);
+}

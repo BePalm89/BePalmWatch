@@ -1,0 +1,21 @@
+<div class="left-side">
+  <p>{{ rowIndex + 1 }}</p>
+  @for( seat of leftSeat; track seat; let idx = $index ) {
+  <div class="seat-container">
+    <app-seat [seat]="idx + 1" [row]="rowIndex + 1"></app-seat>
+    <p class="seat-index">{{ idx + 1 }}</p>
+  </div>
+  }
+</div>
+<p class="corridor">
+    {{ rowIndex + 1 }}
+</p>
+<div class="right-side">
+  @for( seat of rightSeat; track seat; let idx = $index) {
+  <div class="seat-container">
+    <app-seat [seat]="idx + 6"></app-seat>
+    <p class="seat-index">{{ idx + 6 }}</p>
+  </div>
+  }
+  <p>{{ rowIndex + 1 }}</p>
+</div>

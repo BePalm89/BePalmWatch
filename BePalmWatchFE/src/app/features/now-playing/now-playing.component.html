@@ -1,0 +1,8 @@
+<h2>
+  Available time: {{ date?.minimum | date : "dd/MM/yyyy" }} -
+  {{ date?.maximum | date : "dd/MM/yyyy" }}
+</h2>
+<app-card-container
+  [data]="nowPlayingMovies"
+  [type]="'nowPlaying'"
+></app-card-container>

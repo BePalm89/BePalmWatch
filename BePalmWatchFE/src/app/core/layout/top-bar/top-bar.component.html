@@ -1,0 +1,16 @@
+<header>
+  <mat-toolbar>
+    <ul class="links-container">
+      @for(link of LINKS; track link) {
+      <li>
+        <app-link
+          [linkLabel]="link.label"
+          [linkUrl]="link.url"
+          [icon]="link.icon"
+        ></app-link>
+      </li>
+      }
+    </ul>
+    <app-search-bar></app-search-bar>
+  </mat-toolbar>
+</header>

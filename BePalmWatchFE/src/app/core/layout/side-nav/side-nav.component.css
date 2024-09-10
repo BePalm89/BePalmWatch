@@ -1,0 +1,30 @@
+.logo-container {
+    width: 200px;
+}
+
+.logo-container img {
+    width: 100%;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 1rem;
+    font-size: 16px;
+}
+
+.links-container li {
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.links-container li a {
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+
+.links-container li:hover {
+  transform: scale(1.05);
+}

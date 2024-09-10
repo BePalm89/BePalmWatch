@@ -1,0 +1,14 @@
+
+.legend-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.legend-info {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    color: var(--black-color);
+}

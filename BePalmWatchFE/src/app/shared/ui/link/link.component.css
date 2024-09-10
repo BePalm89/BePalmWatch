@@ -1,0 +1,12 @@
+.link {
+    text-transform: uppercase;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: start;
+    align-items: center;
+    padding-bottom: 0.5rem;
+}
+
+a.link.active {
+    border-bottom: 1px solid var(--white-color);
+}

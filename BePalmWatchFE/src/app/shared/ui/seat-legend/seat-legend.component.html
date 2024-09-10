@@ -1,0 +1,8 @@
+<div class="legend-container">
+  @for( legend of LEGEND_SEAT; track legend) {
+    <div class="legend-info">
+        <app-seat [color]="legend.colorIcon"></app-seat>
+        <p>{{ legend.label | titlecase }}</p>
+    </div>
+  }
+</div>

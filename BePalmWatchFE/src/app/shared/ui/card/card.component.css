@@ -1,0 +1,96 @@
+mat-card {
+    width: 450px;
+    border-radius: 28px;
+    height: 675px;
+}
+
+.mat-mdc-card-outlined {
+    border: none;
+}
+
+.card-img-container {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 600px;
+    width: 100%;
+    position: relative;
+}
+
+.card-img-container > img {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    transition: all 0.3s ease;
+    width: 100%;
+    object-fit:fill;
+}
+
+.card-img-container > img:hover {
+    transform: scale(1.1);
+}
+
+.favorite-container {
+    background-color: var(--white-color);
+    position: absolute;
+    padding: 4px;
+    top: 16px;
+    right: 16px;
+    border-radius: 4px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+}
+
+.favorite-container img {
+    width: 100%;
+}
+
+.info-container {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.info-container h4 {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--black-color);
+}
+
+.info-container p {
+    color: var(--gray-color);
+}
+
+mat-divider {
+    height: 20px;
+}
+
+.details-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.genres-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+mat-card a {
+    color: var(--black-color);
+}
+
+mat-card-actions {
+    padding: 0 2rem !important;
+    cursor: pointer;
+}
+
+mat-card-actions a {
+    color: var(--secondary-color);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+mat-card-actions a:hover {
+   border-bottom: 1px solid var(--secondary-color);
+}

@@ -1,0 +1,28 @@
+.sidenav-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--black-color);
+}
+
+.mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+mat-sidenav {
+  background-color: var(--black-color);
+  border: none;
+  border-right: 1px solid var(--gray-color);
+}
+
+.main-content {
+  flex: 1;
+  padding: 16px;
+}
+
+.footer {
+  text-align: center;
+}

@@ -1,0 +1,33 @@
+:host {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-side, .right-side {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-side > p , .right-side > p,  .corridor {
+    color: var(--black-color);
+}
+
+.seat-index {
+    color: var(--gray-color);
+}
+
+.seat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.seat-container p {
+    font-size: 12px;
+    margin-top: -8px;
+}

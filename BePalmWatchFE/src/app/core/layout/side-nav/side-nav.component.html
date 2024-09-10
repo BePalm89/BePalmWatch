@@ -1,0 +1,16 @@
+<mat-nav-list>
+  <div class="logo-container">
+    <img src="/assets/logo/logo.png" alt="logo" />
+  </div>
+  <ul class="links-container">
+    @for (link of SIDE_BAR_LINKS; track link) {
+    <li>
+      <app-link
+        [linkLabel]="link.label"
+        [linkUrl]="link.url"
+        [icon]="link.icon"
+      ></app-link>
+    </li>
+    }
+  </ul>
+</mat-nav-list>
