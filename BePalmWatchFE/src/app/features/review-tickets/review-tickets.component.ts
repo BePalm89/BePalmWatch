@@ -1,11 +1,11 @@
 import { CommonModule, CurrencyPipe } from "@angular/common";
 import { Component, DestroyRef, Input, OnInit, inject } from "@angular/core";
 import { getImageUrl } from "../../shared/utility/utils";
-import { InfoMovieService } from "../../core/services/info-movie.service";
 import { MatTableModule } from "@angular/material/table";
 import { SeatService } from "../../core/services/seat.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Seat } from "../../core/models/seat.model";
+import { InfoMovieService } from '../../core/services/info-movie.service';
 
 @Component({
   selector: "app-review-tickets",
@@ -28,6 +28,8 @@ export class ReviewTicketsComponent implements OnInit {
   ngOnInit(): void {
     this.day = this.infoService.getDay();
     this.time = this.infoService.getTime();
+    console.log(this.time);
+    console.log(this.day);
     this.seatService
       .getSelectedSeats()
       .pipe(takeUntilDestroyed(this.destroyRef))
