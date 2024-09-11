@@ -9,6 +9,7 @@ import {
 import { BookASeatComponent } from '../../../features/book-a-seat/book-a-seat.component';
 import { SeatService } from '../../../core/services/seat.service';
 import { MediaTypeEnum } from '../../../core/enum/media-type.enum';
+import { DialogSliderComponent } from '../dialog-slider/dialog-slider.component';
 
 @Component({
   selector: 'app-details-card',
@@ -34,8 +35,9 @@ export class DetailsCardComponent {
   }
 
   public openBookSeatModal() {
-    const dialogRef = this.dialog.open(BookASeatComponent);
 
+    const dialogRef = this.dialog.open(DialogSliderComponent);
+    
     dialogRef.afterClosed().subscribe(() => {
       this.seatService.clearSelectedSeats();
     })

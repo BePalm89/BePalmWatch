@@ -1,0 +1,37 @@
+<div class="dialog-container">
+  @if( currentStep === 1) {
+  <h2>Get the places you want to watch the movie!</h2>
+  } @else if ( currentStep === 2) {
+  <h2>Second step</h2>
+  } @else if( currentStep === 3 ){
+  <h2>Third step</h2>
+  }
+  <mat-dialog-content>
+    <div class="slider-container">
+      @if( currentStep === 1 ) {
+      <div class="slide" [ngClass]="{ active: currentStep === 1 }">
+        <app-book-a-seat></app-book-a-seat>
+      </div>
+      } @else if ( currentStep === 2) {
+      <div class="slide" [ngClass]="{ active: currentStep === 2 }">
+        <p>Review the ticket the time and the date and the cose</p>
+      </div>
+      } @else if ( currentStep === 3 ) {
+      <div class="slide" [ngClass]="{ active: currentStep === 3 }">
+        <p>Pay and call the put to update the movie model in the db</p>
+      </div>
+      }
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <div class="cta-container">
+      @if ( currentStep === 1) {
+      <button mat-stroked-button (click)="onClose()">Cancel</button>
+      } @else {
+      <button mat-flat-button (click)="onPrevStep()">Previous</button>
+      }
+      <button mat-flat-button (click)="onNextStep()" [disabled]="currentStep === 3" [ngClass]="{ disabled: currentStep === 3 }">Next</button>
+    </div>
+  </mat-dialog-actions>
+</div>

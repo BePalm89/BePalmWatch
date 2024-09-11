@@ -1,26 +1,18 @@
-<div class="dialog-container">
-  <h2>Get the places you want to watch the movie!</h2>
-  <mat-dialog-content>
-    <mat-tab-group>
-      @for( day of days; track day){
-      <mat-tab [label]="day.label">
 
-          <div class="hours-container">
-            @for( hour of HOURS; track hour ) {
-            <button mat-button mat-flat-button>{{ hour }}</button>
-            }
-          </div>
+  <mat-tab-group>
+    @for( day of days; track day){
+    <mat-tab [label]="day.label">
+      <div class="hours-container">
+        @for( hour of HOURS; track hour ) {
+        <button mat-button mat-flat-button>{{ hour }}</button>
+        }
+      </div>
 
-        <app-seat-legend></app-seat-legend>
-        <app-selected-seats></app-selected-seats>
+      <app-seat-legend></app-seat-legend>
+      <app-selected-seats></app-selected-seats>
 
-        <app-seat-area></app-seat-area>
-      </mat-tab>
-      }
-    </mat-tab-group>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-flat-button>No Thanks</button>
-    <button mat-button cdkFocusInitial>Ok</button>
-  </mat-dialog-actions>
-</div>
+      <app-seat-area></app-seat-area>
+    </mat-tab>
+    }
+  </mat-tab-group>
+

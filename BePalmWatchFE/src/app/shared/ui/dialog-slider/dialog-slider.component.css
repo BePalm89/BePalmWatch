@@ -1,0 +1,50 @@
+::ng-deep .mat-mdc-dialog-container {
+  width: 730px !important;
+}
+
+.dialog-container {
+  padding: 1rem;
+}
+h2 {
+  color: black;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 80vh;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide.previous {
+  transform: translateX(-100%);
+}
+
+.cta-container button:first-of-type {
+  border: 1px solid var(--tertiary-color);
+  color: var(--tertiary-color);
+}
+
+.cta-container button:last-of-type {
+  background-color: var(--tertiary-color);
+  color: var(--white-color);
+}
+
+.cta-container button.disabled {
+  background-color: var(--tertiary-color-disabled);
+}

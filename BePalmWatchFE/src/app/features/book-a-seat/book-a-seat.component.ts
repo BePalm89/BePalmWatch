@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import dayjs from 'dayjs';
 import { SeatAreaComponent } from '../../shared/ui/seat-area/seat-area.component';
@@ -11,7 +10,6 @@ import { SelectedSeatsComponent } from '../../shared/ui/selected-seats/selected-
   selector: 'app-book-a-seat',
   standalone: true,
   imports: [
-    MatDialogModule,
     MatButtonModule,
     MatTabsModule,
     SeatAreaComponent,
