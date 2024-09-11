@@ -4,6 +4,7 @@
     color: var(--black-color);
     font-size: 14px;
     align-items: baseline;
+    margin-top: 1rem;
 }
 
 .selected-seats {
