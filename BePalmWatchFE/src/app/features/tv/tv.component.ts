@@ -3,6 +3,7 @@ import { TvService } from '../../core/services/tv.service';
 import { CardContainerComponent } from '../../shared/ui/card-container/card-container.component';
 import { GenreService } from '../../core/services/genre.service';
 import { mapMediaWithGenres } from '../../shared/utility/utils';
+import { MediaTypeEnum } from '../../core/enum/media-type.enum';
 
 @Component({
   selector: 'app-tv',
@@ -16,6 +17,7 @@ export class TvComponent {
   private readonly genreService = inject(GenreService);
 
   tvShows: any[] = [];
+  mediaType = MediaTypeEnum;
 
   constructor() {
     const mappedGenres = this.genreService.getGenreTvShow();

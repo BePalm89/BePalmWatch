@@ -5,6 +5,7 @@ import { mapMediaWithGenres } from '../../shared/utility/utils';
 import { CardContainerComponent } from '../../shared/ui/card-container/card-container.component';
 import { forkJoin } from 'rxjs';
 import { TvService } from '../../core/services/tv.service';
+import { MediaTypeEnum } from '../../core/enum/media-type.enum';
 
 @Component({
   selector: 'app-favourites',
@@ -21,6 +22,7 @@ export class FavouritesComponent {
 
   favoriteMovies: any[] = [];
   favoriteTvShow: any[] = [];
+  mediaType = MediaTypeEnum;
 
   constructor() {
     const mappedGenreMovies = this.genreService.getGenreMovie();

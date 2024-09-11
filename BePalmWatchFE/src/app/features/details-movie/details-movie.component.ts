@@ -3,6 +3,7 @@ import { MoviesService } from '../../core/services/movies.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsCardComponent } from '../../shared/ui/details-card/details-card.component';
 import { MediaType } from '../../core/models/media.model';
+import { MediaTypeEnum } from '../../core/enum/media-type.enum';
 
 @Component({
   selector: 'app-details-movie',
@@ -25,16 +26,24 @@ export class DetailsMovieComponent {
 
   constructor() {
     const navigation = this.router.getCurrentNavigation();
-    this.type = navigation?.extras.state?.['type'] ?? ''
+    this.type = navigation?.extras.state?.['type']  ?? '';
 
-    this.movieService.getDetailsMovie(this.id).subscribe(data => {
-      const genresName = data.genres.map((genre: any) => genre.name);
-      this.movieDetails = {
-        ...data,
-        genres: genresName,
-        original_language: this.getLanguageName(data.original_language)
-      }
-    });
+    console.log(this.type);
+
+    if(false) {
+
+    } else {
+      this.movieService.getDetailsMovie(this.id).subscribe(data => {
+        const genresName = data.genres.map((genre: any) => genre.name);
+        this.movieDetails = {
+          ...data,
+          genres: genresName,
+          original_language: this.getLanguageName(data.original_language)
+        }
+      });
+    }
+
+
   }
 
   public getLanguageName(languageCode: string) {

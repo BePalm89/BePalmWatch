@@ -29,7 +29,8 @@
       {{ movieDetails?.homepage }}</a
     >
   </div>
-  @if( type === 'nowPlaying' ) {
+  {{ type }}
+  @if( type === mediaType.NOW_PLAYING ) {
   <div class="details-cta">
     <button mat-flat-button (click)="openBookSeatModal()">Book a Seat</button>
   </div>

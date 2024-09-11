@@ -5,6 +5,7 @@ import { GenreService } from '../../core/services/genre.service';
 import { Date } from '../../core/models/date.model';
 import { CommonModule } from '@angular/common';
 import dayjs from 'dayjs';
+import { MediaTypeEnum } from '../../core/enum/media-type.enum';
 
 @Component({
   selector: 'app-now-playing',
@@ -20,9 +21,9 @@ export class NowPlayingComponent {
 
   nowPlayingMovies: any[] = [];
   date: Date | null = null;
+  mediaType = MediaTypeEnum;
 
   constructor() {
-    const mappedGenres = this.genreService.getGenreMovie();
     this.nowPlayingService.getNowPlayingMovies().subscribe((resp) => {
         this.date = { minimum: dayjs().toString(), maximum: dayjs().add(4, 'day').toString() }
         this.nowPlayingMovies = resp;

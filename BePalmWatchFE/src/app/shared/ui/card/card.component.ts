@@ -10,6 +10,7 @@ import { TvService } from '../../../core/services/tv.service';
 import { RouterModule } from '@angular/router';
 import { getImageUrl } from '../../utility/utils';
 import { MediaType } from '../../../core/models/media.model';
+import { MediaTypeEnum } from '../../../core/enum/media-type.enum';
 
 type MediaItem = Movie | TvShow;
 
@@ -30,13 +31,13 @@ export class CardComponent {
   private isFavorite = false;
 
   get title(): string {
-    return this.type === 'movie' || this.type === 'nowPlaying'
+    return this.type === MediaTypeEnum.MOVIE || this.type === MediaTypeEnum.NOW_PLAYING
       ? (this.data as Movie).title
       : (this.data as TvShow).name;
   }
 
   get releaseYear(): string {
-    return this.type === 'movie' || this.type === 'nowPlaying'
+    return this.type === MediaTypeEnum.MOVIE || this.type === MediaTypeEnum.NOW_PLAYING
       ? (this.data as Movie).release_date
       : (this.data as TvShow).first_air_date;
   }
@@ -54,7 +55,7 @@ export class CardComponent {
   public toggleFavorite(id: number) {
     this.isFavorite = !this.isFavorite;
 
-    if (this.type === 'movie' || this.type === 'nowPlaying') {
+    if (this.type === MediaTypeEnum.MOVIE || this.type === MediaTypeEnum.NOW_PLAYING) {
       this.movieService
         .addFavorite({
           media_type: 'movie',
