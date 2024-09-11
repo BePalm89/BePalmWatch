@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 import { NowPlayingService } from '../../core/services/now-playing.service';
 import { CardContainerComponent } from '../../shared/ui/card-container/card-container.component';
 import { GenreService } from '../../core/services/genre.service';
-import { mapMediaWithGenres } from '../../shared/utility/utils';
 import { Date } from '../../core/models/date.model';
 import { CommonModule } from '@angular/common';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-now-playing',
@@ -24,8 +24,8 @@ export class NowPlayingComponent {
   constructor() {
     const mappedGenres = this.genreService.getGenreMovie();
     this.nowPlayingService.getNowPlayingMovies().subscribe((resp) => {
-        this.date = resp.dates;
-        this.nowPlayingMovies = mapMediaWithGenres(resp.results, mappedGenres);
+        this.date = { minimum: dayjs().toString(), maximum: dayjs().add(4, 'day').toString() }
+        this.nowPlayingMovies = resp;
     })
   }
 

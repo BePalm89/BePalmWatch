@@ -8,7 +8,8 @@ const MovieSchema = new mongoose.Schema(
     genres: [{ type: String, required: true }],
     original_language: { type: String, required: true },
     overview: { type: String, required: true },
-    homepage: { type: String, required: true },
+    vote_average: { type: Number, required: true},
+    vote_count: { type: Number, required: true},
     showtime: [{ type: mongoose.Schema.Types.ObjectId, ref: "showtime" }],
   },
   { timestamps: true, collection: "movies" }

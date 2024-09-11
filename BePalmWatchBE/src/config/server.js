@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import movieRoutes from '../api/routes/movie.routes.js';
 
 const server =  express();
 
@@ -7,6 +8,8 @@ server.use(cors());
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+
+server.use('/api/v1/movies', movieRoutes);
 
 server.use('*', (req, res, next) => {
     const error = new Error('Route not found');
