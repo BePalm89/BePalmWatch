@@ -23,13 +23,14 @@
     <span> {{ movieDetails?.original_language }}</span>
   </div>
   <p>{{ movieDetails?.overview }}</p>
-  <div class="details-homepage">
-    <h2>Home Page:</h2>
-    <a [href]="movieDetails?.homepage" target="_blank">
-      {{ movieDetails?.homepage }}</a
-    >
-  </div>
-  {{ type }}
+  @if( movieDetails?.homepage ) {
+    <div class="details-homepage">
+      <h2>Home Page:</h2>
+      <a [href]="movieDetails?.homepage" target="_blank">
+        {{ movieDetails?.homepage }}</a
+      >
+    </div>
+  }
   @if( type === mediaType.NOW_PLAYING ) {
   <div class="details-cta">
     <button mat-flat-button (click)="openBookSeatModal()">Book a Seat</button>

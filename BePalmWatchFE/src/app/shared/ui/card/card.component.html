@@ -23,6 +23,6 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <a [routerLink]="['/movie', data.id]" [state]="{type: type}"> View More <img src="/assets/icons/right-arrow.png" alt="arrow"/></a>
+    <a [routerLink]="['/movie', data.id || data._id]" [state]="{type: type}"> View More <img src="/assets/icons/right-arrow.png" alt="arrow"/></a>
   </mat-card-actions>
 </mat-card>

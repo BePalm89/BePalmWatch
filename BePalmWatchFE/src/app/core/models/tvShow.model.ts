@@ -5,6 +5,7 @@ export interface TvShow {
     genre_ids: number[];
     genres: string[];
     id: number;
+    _id: string;
     name: string;
     origin_country: string[];
     original_language: string;
