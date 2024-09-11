@@ -1,0 +1,30 @@
+.info-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.movie-info span {
+  color: var(--black-color);
+}
+
+.info-container img {
+  height: 100%;
+}
+
+.cost-container {
+  margin-top: 1rem;
+}
+
+.row:nth-child(even) {
+    background-color: #f0f0f0
+}
+
+::ng-deep .mat-mdc-table tfoot, .mat-mdc-footer-cell, .mat-mdc-footer-row {
+    border-top: 1px solid var(--black-color) !important;
+}

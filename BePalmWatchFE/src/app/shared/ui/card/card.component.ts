@@ -1,6 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
 import { Movie } from '../../../core/models/movie.model';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { YearPipe } from '../../pipes/year.pipe';
 import { MatDividerModule } from '@angular/material/divider';

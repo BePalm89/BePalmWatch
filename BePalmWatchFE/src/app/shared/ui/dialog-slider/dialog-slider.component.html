@@ -2,7 +2,7 @@
   @if( currentStep === 1) {
   <h2>Get the places you want to watch the movie!</h2>
   } @else if ( currentStep === 2) {
-  <h2>Second step</h2>
+  <h2>Review all your data before buying the ticket</h2>
   } @else if( currentStep === 3 ){
   <h2>Third step</h2>
   }
@@ -14,7 +14,7 @@
       </div>
       } @else if ( currentStep === 2) {
       <div class="slide" [ngClass]="{ active: currentStep === 2 }">
-        <p>Review the ticket the time and the date and the cose</p>
+        <app-review-tickets [data]="data"></app-review-tickets>
       </div>
       } @else if ( currentStep === 3 ) {
       <div class="slide" [ngClass]="{ active: currentStep === 3 }">
@@ -31,7 +31,14 @@
       } @else {
       <button mat-flat-button (click)="onPrevStep()">Previous</button>
       }
-      <button mat-flat-button (click)="onNextStep()" [disabled]="currentStep === 3" [ngClass]="{ disabled: currentStep === 3 }">Next</button>
+      <button
+        mat-flat-button
+        (click)="onNextStep()"
+        [disabled]="currentStep === 3 || !seats.length"
+        [ngClass]="{ disabled: currentStep === 3 || !seats.length }"
+      >
+        Next
+      </button>
     </div>
   </mat-dialog-actions>
 </div>

@@ -9,8 +9,8 @@ export const mapMediaWithGenres = (movies: any[], genreIds: { [key: number]: str
 
 }
 
-const IMAGE_BASE_URL: string = 'https://image.tmdb.org/t/p/w400/';
+const IMAGE_BASE_URL: string = 'https://image.tmdb.org/t/p/';
 
-export const getImageUrl = (path: string) => {
-  return `${IMAGE_BASE_URL}${path}`;
+export const getImageUrl = (path: string, size: string = 'w400') => {
+  return `${IMAGE_BASE_URL}${size}/${path}`;
 } 

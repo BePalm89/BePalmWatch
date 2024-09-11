@@ -1,0 +1,19 @@
+.hours-container {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+    font-family: var(--font-family);
+  }
+  
+  .hours-container div {
+    border: 1px solid var(--tertiary-color);
+    color: var(--tertiary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .hours-container div.selected {
+    background-color: var(--tertiary-color);
+    color: var(--white-color);
+  }

@@ -13,7 +13,7 @@
 <div class="right-side">
   @for( seat of rightSeat; track seat; let idx = $index) {
   <div class="seat-container">
-    <app-seat [seat]="idx + 6"></app-seat>
+    <app-seat [seat]="idx + 6" [row]="rowIndex + 1"></app-seat>
     <p class="seat-index">{{ idx + 6 }}</p>
   </div>
   }

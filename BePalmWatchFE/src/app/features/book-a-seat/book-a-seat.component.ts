@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import dayjs from 'dayjs';
 import { SeatAreaComponent } from '../../shared/ui/seat-area/seat-area.component';
 import { SeatLegendComponent } from '../../shared/ui/seat-legend/seat-legend.component';
 import { SelectedSeatsComponent } from '../../shared/ui/selected-seats/selected-seats.component';
+import { HourSelectorComponent } from '../../shared/ui/hour-selector/hour-selector.component';
+import { InfoMovieService } from '../../core/services/info-movie.service';
 
 @Component({
   selector: 'app-book-a-seat',
@@ -14,18 +16,26 @@ import { SelectedSeatsComponent } from '../../shared/ui/selected-seats/selected-
     MatTabsModule,
     SeatAreaComponent,
     SeatLegendComponent,
-    SelectedSeatsComponent
+    SelectedSeatsComponent,
+    HourSelectorComponent
   ],
   templateUrl: './book-a-seat.component.html',
   styleUrl: './book-a-seat.component.css',
 })
 export class BookASeatComponent {
+
+  private readonly infoService = inject(InfoMovieService);
+
   public days: { label: string; content: string }[] = [];
 
   public HOURS: string[] = ['16:00', '18:00', '20:00', '22:00'];
 
   constructor() {
     this.generateDays();
+  }
+
+  public selectedTabValue(event: MatTabChangeEvent) {
+    this.infoService.setDay(event.tab.textLabel);
   }
 
   private generateDays() {

@@ -1,0 +1,7 @@
+<div class="hours-container">
+  @for( hour of HOURS; track hour ) {
+  <div [ngClass]="{ selected: isSelected(hour) }" (click)="onSelectHour(hour)">
+    {{ hour }}
+  </div>
+  }
+</div>
