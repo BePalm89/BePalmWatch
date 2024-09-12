@@ -33,19 +33,11 @@ export class SeatComponent implements AfterViewInit {
 
   public seatStatus: SeatStatus = SeatStatus.AVAILABLE;
   public isOccupied = false;
+  public isSelected = false;
 
   ngAfterViewInit(): void {
-    this.seatService
-      .getOccupiedSeats()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value) => {
-        const seat = value.find(
-          (s) => s.row === this.row && s.seat === this.seat
-        );
-        this.isOccupied = !!seat;
-        this.updateColor(seat?.status as SeatStatus);
-        this.cd.detectChanges();
-      });
+    this.handleOccupiedSeats();
+    this.handleSelectedSeats();
   }
 
   public selectSeat() {
@@ -60,19 +52,24 @@ export class SeatComponent implements AfterViewInit {
 
     this.seatService.selectSeat(selectedSeat);
 
-    this.seatService
-      .getSelectedSeats()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((selectedSeat) => {
-        const seat = selectedSeat.find(
-          (s) => s.row === this.row && s.seat === this.seat
-        );
-        this.updateColor(seat?.status as SeatStatus);
-      });
+    this.handleSelectedSeats();
   }
 
-  private updateColor(status: string) {
-    switch (status) {
+  private updateColor() {
+    if(this.isOccupied) {
+      this.color = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--occupied-color");
+    } else if ( this.isSelected) {
+      this.color = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--tertiary-color");
+    } else {
+      this.color = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--free-color");
+    }
+/*     switch (status) {
       case SeatStatus.AVAILABLE:
         this.color = getComputedStyle(
           document.documentElement
@@ -93,9 +90,35 @@ export class SeatComponent implements AfterViewInit {
         this.color = getComputedStyle(
           document.documentElement
         ).getPropertyValue("--free-color");
-        break;
-    }
+        break; 
+    }*/
   };
 
+  private handleOccupiedSeats() {
+    this.seatService
+      .getOccupiedSeats()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        const seat = value.find(
+          (s) => s.row === this.row && s.seat === this.seat
+        );
+        this.isOccupied = !!seat;
+        this.updateColor();
+        this.cd.detectChanges();
+      });
+  };
 
+  private handleSelectedSeats() {
+    this.seatService
+    .getSelectedSeats()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe((selectedSeat) => {
+      const seat = selectedSeat.find(
+        (s) => s.row === this.row && s.seat === this.seat && s.status !== SeatStatus.OCCUPIED
+      );
+      this.isSelected = !!seat;
+      this.updateColor();
+      this.cd.detectChanges();
+    });
+  }
 }
