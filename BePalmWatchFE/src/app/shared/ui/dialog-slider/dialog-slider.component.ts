@@ -9,6 +9,7 @@ import { ReviewTicketsComponent } from "../../../features/review-tickets/review-
 import { SeatService } from "../../../core/services/seat.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Seat } from "../../../core/models/seat.model";
+import { PayComponent } from "../../../features/pay/pay.component";
 
 @Component({
   selector: "app-dialog-slider",
@@ -19,6 +20,7 @@ import { Seat } from "../../../core/models/seat.model";
     MatButtonModule,
     CommonModule,
     ReviewTicketsComponent,
+    PayComponent
   ],
   templateUrl: "./dialog-slider.component.html",
   styleUrl: "./dialog-slider.component.css",

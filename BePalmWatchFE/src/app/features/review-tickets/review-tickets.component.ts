@@ -28,8 +28,7 @@ export class ReviewTicketsComponent implements OnInit {
   ngOnInit(): void {
     this.day = this.infoService.getDay();
     this.time = this.infoService.getTime();
-    console.log(this.time);
-    console.log(this.day);
+
     this.seatService
       .getSelectedSeats()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -53,6 +52,8 @@ export class ReviewTicketsComponent implements OnInit {
   }
 
   public getTotalCost() {
-    return this.tickets.reduce((acc, ticket) => acc + ticket.price, 0);
+    const cost = this.tickets.reduce((acc, ticket) => acc + ticket.price, 0);
+    this.infoService.setCost(cost);
+    return cost;
   }
 }

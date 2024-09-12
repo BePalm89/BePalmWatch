@@ -1,0 +1,58 @@
+<div class="container">
+  <h4>Operation details</h4>
+  <div class="info-container">
+    <p>
+      Cost: <span>{{ infoService.getCost() | currency : "EUR" }}</span>
+    </p>
+    <p>
+      Date: <span>{{ today }}</span>
+    </p>
+    <p>Product description: <span>Movie tickets</span></p>
+  </div>
+</div>
+<div class="container">
+  <h4>Pay with card</h4>
+  <form [formGroup]="paymentForm">
+    <mat-form-field>
+      <div class="form-item">
+        <mat-icon>person</mat-icon>
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          placeholder="Card holder"
+        />
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <div class="form-item">
+        <mat-icon>credit_card</mat-icon>
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          placeholder="Card holder"
+        />
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <div class="form-item">
+        <mat-icon>credit_card</mat-icon>
+        <input matInput type="number" formControlName="cvv" placeholder="CVV" />
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="expirationDate"
+        placeholder="Expiration date"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>

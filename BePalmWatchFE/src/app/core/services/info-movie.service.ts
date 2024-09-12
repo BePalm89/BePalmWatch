@@ -8,21 +8,31 @@ export class InfoMovieService {
 
   public day: string = dayjs().format('ddd, DD.MM');
   public time: string = '16:00';
+  public cost: number = 0;
+
+
+  public getDay(): string {
+    return this.day;
+  }
 
   public setDay(day: string) {
     return this.day = day;
+  }
+
+  public getTime(): string {
+    return this.time;
   }
 
   public setTime(time: string) {
     return this.time = time;
   }
 
-  public getDay(): string {
-    return this.day;
+  public getCost(): number {
+    return this.cost;
   }
 
-  public getTime(): string {
-    return this.time;
+  public setCost(cost: number){
+    return this.cost = cost;
   }
 
 }

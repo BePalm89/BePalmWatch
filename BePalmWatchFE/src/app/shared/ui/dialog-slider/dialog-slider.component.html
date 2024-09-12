@@ -4,7 +4,7 @@
   } @else if ( currentStep === 2) {
   <h2>Review all your data before buying the ticket</h2>
   } @else if( currentStep === 3 ){
-  <h2>Third step</h2>
+  <h2>Pay your tickets</h2>
   }
   <mat-dialog-content>
     <div class="slider-container">
@@ -18,7 +18,7 @@
       </div>
       } @else if ( currentStep === 3 ) {
       <div class="slide" [ngClass]="{ active: currentStep === 3 }">
-        <p>Pay and call the put to update the movie model in the db</p>
+       <app-pay></app-pay>
       </div>
       }
     </div>
@@ -37,7 +37,13 @@
         [disabled]="currentStep === 3 || !seats.length"
         [ngClass]="{ disabled: currentStep === 3 || !seats.length }"
       >
-        Next
+        @if( currentStep === 1 ){
+          Review
+        } @if ( currentStep === 2 ){
+          Pay Details
+        } @if( currentStep === 3) {
+          Pay
+        }
       </button>
     </div>
   </mat-dialog-actions>
