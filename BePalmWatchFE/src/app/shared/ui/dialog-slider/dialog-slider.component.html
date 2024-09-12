@@ -18,7 +18,7 @@
       </div>
       } @else if ( currentStep === 3 ) {
       <div class="slide" [ngClass]="{ active: currentStep === 3 }">
-       <app-pay></app-pay>
+        <app-pay (formValid)="onFormValid($event)"></app-pay>
       </div>
       }
     </div>
@@ -30,21 +30,31 @@
       <button mat-stroked-button (click)="onClose()">Cancel</button>
       } @else {
       <button mat-flat-button (click)="onPrevStep()">Previous</button>
-      }
+      } @if ( currentStep === 1 ) {
       <button
         mat-flat-button
         (click)="onNextStep()"
         [disabled]="!seats.length"
         [ngClass]="{ disabled: !seats.length }"
       >
-        @if( currentStep === 1 ){
-          Review
-        } @if ( currentStep === 2 ){
-          Pay Details
-        } @if( currentStep === 3) {
-          Pay
-        }
+        Review
       </button>
+      } @else if ( currentStep === 2 ) {
+      <button
+        mat-flat-button
+        (click)="onNextStep()"
+      >Pay Details
+      </button>
+      } @else if ( currentStep === 3 ){
+        <button
+        mat-flat-button
+        (click)="onNextStep()"
+        [disabled]="!isFormValid"
+        [ngClass]="{ disabled: !isFormValid }"
+      >Pay 
+      </button>
+      }
+
     </div>
   </mat-dialog-actions>
 </div>

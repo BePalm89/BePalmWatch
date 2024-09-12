@@ -47,8 +47,9 @@ export class DialogSliderComponent implements OnInit {
 
   public currentStep = 1;
   public seats: Seat[] = [];
-  public time = '';
-  data!: any;
+  public time = "";
+  public data!: any;
+  public isFormValid = false;
 
   constructor() {
     this.seatService
@@ -60,9 +61,11 @@ export class DialogSliderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nowPlayingService.getNowPlayingMovieById(this.movieId).subscribe(movie => {
-      this.data = movie;
-    })
+    this.nowPlayingService
+      .getNowPlayingMovieById(this.movieId)
+      .subscribe((movie) => {
+        this.data = movie;
+      });
   }
 
   public onNextStep(): void {
@@ -87,12 +90,19 @@ export class DialogSliderComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  public onFormValid(valid: boolean) {
+    this.isFormValid = valid;
+  }
+
   private createPayload() {
     const date = this.infoService.getDay();
     const formattedDate = convertDate(date);
-    this.infoService.getTime().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(time => {
-      this.time = time;
-    })
+    this.infoService
+      .getTime()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((time) => {
+        this.time = time;
+      });
 
     return {
       showtime: [

@@ -8,6 +8,7 @@
   width="24px"
   height="24px"
   (click)="selectSeat()"
+  [ngClass]="{'non-clickable': isOccupied}"
 >
   <path
     [attr.fill]="color"

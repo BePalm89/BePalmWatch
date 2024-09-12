@@ -1,3 +1,11 @@
+.st0 {
+    stroke: #000000;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
+    cursor: pointer;
+}
 
 .legend-container {
     display: flex;

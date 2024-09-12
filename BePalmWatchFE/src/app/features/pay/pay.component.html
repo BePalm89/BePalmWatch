@@ -23,6 +23,9 @@
           placeholder="Card holder"
         />
       </div>
+      @if(paymentForm.get('name')?.hasError('required')){
+        <mat-error>Card holder is required</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
       <div class="form-item">
@@ -30,16 +33,22 @@
         <input
           matInput
           type="text"
-          formControlName="name"
-          placeholder="Card holder"
+          formControlName="cardNumber"
+          placeholder="Card number"
         />
       </div>
+      @if(paymentForm.get('cardNumber')?.hasError('required')){
+        <mat-error>Card number is required</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
       <div class="form-item">
         <mat-icon>credit_card</mat-icon>
         <input matInput type="number" formControlName="cvv" placeholder="CVV" />
       </div>
+      @if(paymentForm.get('cvv')?.hasError('required')){
+        <mat-error>CVV is required</mat-error>
+      }
     </mat-form-field>
     <mat-form-field>
       <input
@@ -53,6 +62,9 @@
         [for]="picker"
       ></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      @if(paymentForm.get('expirationDate')?.hasError('required')){
+        <mat-error>Expiration date is required</mat-error>
+      }
     </mat-form-field>
   </form>
 </div>
