@@ -1,5 +1,23 @@
 import mongoose from "mongoose";
 
+const SeatSchema = new mongoose.Schema(
+  {
+    row: { type: String, required: true },
+    seat: { type: String, required: true },
+  },
+  { timestamps: true, collection: "seats" }
+);
+
+const ShowtimeSchema = new mongoose.Schema(
+  {
+    date: { type: String, required: true },
+    time: { type: String, required: true },
+    tickets: [SeatSchema],
+  },
+  { timestamps: true, collection: "showtime" }
+);
+
+
 const MovieSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
@@ -10,7 +28,7 @@ const MovieSchema = new mongoose.Schema(
     overview: { type: String, required: true },
     vote_average: { type: Number, required: true},
     vote_count: { type: Number, required: true},
-    showtime: [{ type: mongoose.Schema.Types.ObjectId, ref: "showtime" }],
+    showtime: [ShowtimeSchema],
   },
   { timestamps: true, collection: "movies" }
 );
