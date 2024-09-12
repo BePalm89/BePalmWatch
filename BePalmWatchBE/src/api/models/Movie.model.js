@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const SeatSchema = new mongoose.Schema(
   {
-    row: { type: String, required: true },
-    seat: { type: String, required: true },
+    row: { type: Number, required: true },
+    seat: { type: Number, required: true },
   },
   { timestamps: true, collection: "seats" }
 );
