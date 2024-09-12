@@ -8,11 +8,15 @@ const SeatSchema = new mongoose.Schema(
   { timestamps: true, collection: "seats" }
 );
 
+const ShowtimeTimeSchema = new mongoose.Schema({
+  time: { type: String, required: true },
+  tickets: [SeatSchema],
+})
+
 const ShowtimeSchema = new mongoose.Schema(
   {
     date: { type: String, required: true },
-    time: { type: String, required: true },
-    tickets: [SeatSchema],
+    times: [ShowtimeTimeSchema],
   },
   { timestamps: true, collection: "showtime" }
 );
