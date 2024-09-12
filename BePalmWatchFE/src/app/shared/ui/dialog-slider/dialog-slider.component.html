@@ -34,8 +34,8 @@
       <button
         mat-flat-button
         (click)="onNextStep()"
-        [disabled]="currentStep === 3 || !seats.length"
-        [ngClass]="{ disabled: currentStep === 3 || !seats.length }"
+        [disabled]="!seats.length"
+        [ngClass]="{ disabled: !seats.length }"
       >
         @if( currentStep === 1 ){
           Review
