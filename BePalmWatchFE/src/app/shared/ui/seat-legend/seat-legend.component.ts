@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class SeatLegendComponent {
   public readonly LEGEND_SEAT = [
-    { label: 'Available', colorIcon: getComputedStyle(document.documentElement).getPropertyValue('--free-color')},
-    { label: 'Occupied', colorIcon: getComputedStyle(document.documentElement).getPropertyValue('--occupied-color')},
-    { label: 'Selected', colorIcon: getComputedStyle(document.documentElement).getPropertyValue('--tertiary-color')},
+    { label: 'Available', status: 'FREE', colorIcon: getComputedStyle(document.documentElement).getPropertyValue('--free-color')},
+    { label: 'Occupied', status: 'OCCUPIED',colorIcon: getComputedStyle(document.documentElement).getPropertyValue('--occupied-color')},
+    { label: 'Selected', status: 'SELECTED', colorIcon: getComputedStyle(document.documentElement).getPropertyValue('--tertiary-color')},
   ];
 }

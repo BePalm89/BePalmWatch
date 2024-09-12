@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import dayjs from "dayjs";
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import dayjs from "dayjs";
 export class InfoMovieService {
 
   public day: string = dayjs().format('ddd, DD.MM');
-  public time: string = '16:00';
+  public time = new BehaviorSubject<string>('16:00');
   public cost: number = 0;
 
 
@@ -19,12 +20,12 @@ export class InfoMovieService {
     return this.day = day;
   }
 
-  public getTime(): string {
+  public getTime(): BehaviorSubject<string> {
     return this.time;
   }
 
   public setTime(time: string) {
-    return this.time = time;
+    return this.time.next(time);
   }
 
   public getCost(): number {
@@ -33,6 +34,10 @@ export class InfoMovieService {
 
   public setCost(cost: number){
     return this.cost = cost;
+  }
+
+  public resetTime() {
+    return this.time.next('16:00');
   }
 
 }

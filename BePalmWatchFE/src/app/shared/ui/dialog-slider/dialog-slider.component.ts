@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from "@angular/core";
+import { Component, DestroyRef, OnInit, inject } from "@angular/core";
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -18,6 +18,8 @@ import { NowPlayingService } from "../../../core/services/now-playing.service";
 import { InfoMovieService } from "../../../core/services/info-movie.service";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
+import { convertDate } from "../../utility/utils";
+import { ActivatedRoute } from "@angular/router";
 
 dayjs.extend(customParseFormat);
 @Component({
@@ -34,16 +36,19 @@ dayjs.extend(customParseFormat);
   templateUrl: "./dialog-slider.component.html",
   styleUrl: "./dialog-slider.component.css",
 })
-export class DialogSliderComponent {
+export class DialogSliderComponent implements OnInit {
   private readonly seatService = inject(SeatService);
   private readonly nowPlayingService = inject(NowPlayingService);
   private readonly infoService = inject(InfoMovieService);
   private readonly dialogRef = inject(MatDialogRef<DialogSliderComponent>);
   private readonly destroyRef = inject(DestroyRef);
-  public readonly data = inject(MAT_DIALOG_DATA);
+  private readonly route = inject(ActivatedRoute);
+  public readonly movieId = inject(MAT_DIALOG_DATA);
 
   public currentStep = 1;
   public seats: Seat[] = [];
+  public time = '';
+  data!: any;
 
   constructor() {
     this.seatService
@@ -52,6 +57,12 @@ export class DialogSliderComponent {
       .subscribe((seat) => {
         this.seats = seat;
       });
+  }
+
+  ngOnInit(): void {
+    this.nowPlayingService.getNowPlayingMovieById(this.movieId).subscribe(movie => {
+      this.data = movie;
+    })
   }
 
   public onNextStep(): void {
@@ -78,7 +89,10 @@ export class DialogSliderComponent {
 
   private createPayload() {
     const date = this.infoService.getDay();
-    const formattedDate = this.convertDate(date);
+    const formattedDate = convertDate(date);
+    this.infoService.getTime().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(time => {
+      this.time = time;
+    })
 
     return {
       showtime: [
@@ -86,27 +100,12 @@ export class DialogSliderComponent {
           date: formattedDate,
           times: [
             {
-              time: this.infoService.getTime(),
+              time: this.time,
               tickets: this.seats,
             },
           ],
         },
       ],
     };
-  }
-
-  private convertDate(date: string): string {
-    const inputFormat = "ddd, DD.MM";
-    const outputFormat = "YYYY-MM-DD";
-    const year = 2024;
-    const dateString = `${date} ${year}`;
-
-    const parsedDate = dayjs(dateString, `${inputFormat} YYYY`);
-
-    if (!parsedDate.isValid()) {
-      throw new Error("Invalid date format");
-    }
-
-    return parsedDate.format(outputFormat);
   }
 }

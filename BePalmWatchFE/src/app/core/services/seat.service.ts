@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Seat } from '../models/seat.model';
 import { SeatStatus } from '../enum/seat-status.enum';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,8 +8,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SeatService {
 
+  private readonly snackbar = inject(MatSnackBar);
   public selectedSeatsSubject = new BehaviorSubject<Seat[]>([]);
-  private readonly snackbar = inject(MatSnackBar)
+  public occupiedSeatsSubject = new BehaviorSubject<Seat[]>([]);
 
   public selectSeat(seat: Seat) {
     const currentSeats = this.selectedSeatsSubject.value;
@@ -39,6 +40,18 @@ export class SeatService {
 
   public clearSelectedSeats() {
     return this.selectedSeatsSubject.next([]);
+  }
+
+  public setOccupiedSeats(seats: Seat[]) {
+    this.occupiedSeatsSubject.next(seats);
+  }
+
+  public getOccupiedSeats(): BehaviorSubject<Seat[]> {
+    return this.occupiedSeatsSubject;
+  }
+
+  public clearOccupiedSeats() {
+    return this.occupiedSeatsSubject.next([]);
   }
 
 

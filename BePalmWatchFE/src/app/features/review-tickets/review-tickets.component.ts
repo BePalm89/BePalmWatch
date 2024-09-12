@@ -5,7 +5,7 @@ import { MatTableModule } from "@angular/material/table";
 import { SeatService } from "../../core/services/seat.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Seat } from "../../core/models/seat.model";
-import { InfoMovieService } from '../../core/services/info-movie.service';
+import { InfoMovieService } from "../../core/services/info-movie.service";
 
 @Component({
   selector: "app-review-tickets",
@@ -27,7 +27,10 @@ export class ReviewTicketsComponent implements OnInit {
 
   ngOnInit(): void {
     this.day = this.infoService.getDay();
-    this.time = this.infoService.getTime();
+    this.infoService
+      .getTime()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((time) => (this.time = time));
 
     this.seatService
       .getSelectedSeats()

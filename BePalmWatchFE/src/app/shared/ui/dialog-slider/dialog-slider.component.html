@@ -10,7 +10,7 @@
     <div class="slider-container">
       @if( currentStep === 1 ) {
       <div class="slide" [ngClass]="{ active: currentStep === 1 }">
-        <app-book-a-seat></app-book-a-seat>
+        <app-book-a-seat [data]="data"></app-book-a-seat>
       </div>
       } @else if ( currentStep === 2) {
       <div class="slide" [ngClass]="{ active: currentStep === 2 }">
