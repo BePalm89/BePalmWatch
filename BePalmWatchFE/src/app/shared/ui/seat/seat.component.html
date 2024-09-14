@@ -7,8 +7,8 @@
   xml:space="preserve"
   width="24px"
   height="24px"
-  (click)="selectSeat()"
-  [ngClass]="{'non-clickable': isOccupied}"
+  (click)="onSeatClick()"
+  [ngClass]="{'non-clickable': color === '#F4000B'}"
 >
   <path
     [attr.fill]="color"

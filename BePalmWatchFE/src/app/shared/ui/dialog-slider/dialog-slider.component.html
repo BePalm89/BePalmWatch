@@ -48,7 +48,7 @@
       } @else if ( currentStep === 3 ){
         <button
         mat-flat-button
-        (click)="onNextStep()"
+        (click)="updateMovieAndPay()"
         [disabled]="!isFormValid"
         [ngClass]="{ disabled: !isFormValid }"
       >Pay 

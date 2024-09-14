@@ -1,5 +1,6 @@
 export enum SeatStatus {
     AVAILABLE = 'AVAILABLE',
     OCCUPIED = 'OCCUPIED',
-    SELECTED = 'SELECTED'
+    SELECTED = 'SELECTED',
+    CORRIDOR = 'CORRIDOR',
 }

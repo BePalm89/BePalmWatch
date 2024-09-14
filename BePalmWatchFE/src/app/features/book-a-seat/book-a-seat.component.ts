@@ -4,6 +4,9 @@ import {
   Component,
   DestroyRef,
   Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
   inject,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -36,7 +39,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   templateUrl: "./book-a-seat.component.html",
   styleUrl: "./book-a-seat.component.css",
 })
-export class BookASeatComponent implements AfterViewInit {
+export class BookASeatComponent implements OnChanges {
   private readonly infoService = inject(InfoMovieService);
   private readonly seatService = inject(SeatService);
   private readonly cd = inject(ChangeDetectorRef);
@@ -44,16 +47,17 @@ export class BookASeatComponent implements AfterViewInit {
 
   @Input() data!: any;
 
-  public days: { label: string; content: Seat[] }[] = [];
+  public tabTitles: string[] = [];
   public ticketsPerDayAndTime: Seat[] = [];
   public time = "";
   public HOURS: string[] = ["16:00", "18:00", "20:00", "22:00"];
-  public date = '';
+  public date = "";
 
-  constructor() {}
-
-  ngAfterViewInit(): void {
+  constructor() {
     this.generateDays();
+  }
+
+  ngOnChanges(): void {
     this.infoService
       .getTime()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -85,10 +89,7 @@ export class BookASeatComponent implements AfterViewInit {
       const day = dayjs().add(i, "day");
       const dayLabel = day.format("ddd, DD/MM");
 
-      this.days.push({
-        label: dayLabel,
-        content: [],
-      });
+      this.tabTitles.push(dayLabel);
     }
   }
 
@@ -102,23 +103,23 @@ export class BookASeatComponent implements AfterViewInit {
       (showtime: any) => showtime.time === this.time
     );
 
-    this.ticketsPerDayAndTime = showtimePerSelectedTime?.tickets || [];
+    const tickets = showtimePerSelectedTime?.tickets || [];
 
-    const ticketsWithStatus = this.ticketsPerDayAndTime.map((ticket) => ({
+    this.ticketsPerDayAndTime = tickets.map((ticket: any) => ({
       ...ticket,
       status: SeatStatus.OCCUPIED,
     }));
 
-    this.seatService.setOccupiedSeats(ticketsWithStatus);
+    this.seatService.setOccupiedSeats(this.ticketsPerDayAndTime);
   }
 
   private updateSelectedDayContent(selectedDayLabel: string) {
-    const selectedDay = this.days.find((day) => day.label === selectedDayLabel);
-    if (selectedDay) {
+    //const selectedDay = this.days.find((day) => day.label === selectedDayLabel);
+    /*     if (selectedDay) {
       selectedDay.content = this.ticketsPerDayAndTime.map((ticket) => ({
         ...ticket,
         status: SeatStatus.OCCUPIED,
       }));
-    }
+    } */
   }
 }

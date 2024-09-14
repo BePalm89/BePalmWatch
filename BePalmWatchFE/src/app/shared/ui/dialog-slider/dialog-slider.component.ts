@@ -69,17 +69,17 @@ export class DialogSliderComponent implements OnInit {
   }
 
   public onNextStep(): void {
-    if (this.currentStep === 3) {
-      const { _id } = this.data;
-
-      const payload = this.createPayload();
-
-      this.nowPlayingService
-        .updateNowPlayingMovie(_id, payload)
-        .subscribe(() => this.dialogRef.close());
-    } else {
       this.currentStep++;
-    }
+  }
+
+  public updateMovieAndPay(): void {
+    const { _id } = this.data;
+
+    const payload = this.createPayload();
+
+    this.nowPlayingService
+      .updateNowPlayingMovie(_id, payload)
+      .subscribe(() => this.dialogRef.close());
   }
 
   public onPrevStep(): void {

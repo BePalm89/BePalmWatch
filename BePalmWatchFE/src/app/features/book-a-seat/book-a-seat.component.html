@@ -1,8 +1,7 @@
 <mat-tab-group (selectedTabChange)="selectedTabValue($event)">
-  @for( day of days; track day){
-  <mat-tab [label]="day.label">
+  @for( day of tabTitles; track day){
+  <mat-tab [label]="day">
     <app-hour-selector></app-hour-selector>
-
     <app-seat-legend></app-seat-legend>
     <app-selected-seats></app-selected-seats>
     <app-seat-area></app-seat-area>
