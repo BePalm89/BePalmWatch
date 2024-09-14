@@ -1,7 +1,7 @@
 <div class="seat-area">
   @for( row of seatRows; track row; let index = $index) {
   <div class="row" >
-    <div class="row-number">{{ row[0].rowNumber }}</div>
+    <div class="row-number">{{ row[0].row }}</div>
 
     @for( seat of row.slice(0, SEAT_NUMBER_PER_ROW); track seat) {
       <div class="seat-container" >
@@ -9,12 +9,12 @@
           [color]="getColor(seat.status)"
           (seatSelected)="onSelectedSeat(seat.id)">
         </app-seat>
-        <div class="seat-number">{{ seat.seatNumber }}</div>
+        <div class="seat-number">{{ seat.seat }}</div>
       </div>
     }
 
     <div class="corridor">
-      <div class="row-number">{{ row[SEAT_NUMBER_PER_ROW].rowNumber }}</div>
+      <div class="row-number">{{ row[SEAT_NUMBER_PER_ROW].row }}</div>
     </div>
 
     @for (seat of row.slice(SEAT_NUMBER_PER_ROW + 1); track seat) {
@@ -23,11 +23,11 @@
           [color]="getColor(seat.status)"
           (seatSelected)="onSelectedSeat(seat.id)">
         </app-seat>
-        <div class="seat-number">{{ seat.seatNumber }}</div>
+        <div class="seat-number">{{ seat.seat }}</div>
       </div>
     }
 
-    <div class="row-number">{{ row[0].rowNumber }}</div>
+    <div class="row-number">{{ row[0].row }}</div>
   </div>
 }
 </div>

@@ -12,6 +12,7 @@ import { SeatComponent } from "../seat/seat.component";
 import { SeatService } from "../../../core/services/seat.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { SeatStatus } from "../../../core/enum/seat-status.enum";
+import { Seat } from "../../../core/models/seat.model";
 
 @Component({
   selector: "app-seat-area",
@@ -27,12 +28,7 @@ export class SeatAreaComponent implements OnInit {
   public readonly ROWS_NUMBER = 11;
   public readonly SEAT_NUMBER_PER_ROW = 5;
 
-  seatRows: {
-    id: number;
-    status: SeatStatus;
-    rowNumber: number;
-    seatNumber: number;
-  }[][] = [];
+  seatRows: Seat[][] = [];
 
   ngOnInit(): void {
     this.generateSeats(this.ROWS_NUMBER, this.SEAT_NUMBER_PER_ROW);
@@ -44,6 +40,7 @@ export class SeatAreaComponent implements OnInit {
       const seat = row.find((s) => s.id === seatId);
       if (seat && seat.status === SeatStatus.AVAILABLE) {
         seat.status = SeatStatus.SELECTED;
+        this.seatService.selectSeat(seat);
       } else if (seat && seat.status === SeatStatus.SELECTED) {
         seat.status = SeatStatus.AVAILABLE;
       }
@@ -71,7 +68,7 @@ export class SeatAreaComponent implements OnInit {
     this.seatService.getOccupiedSeats().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((seats) => {
       for ( let seatsInfo of seats) {
         const row = this.seatRows[seatsInfo.row -1];
-        const seat = row.find(s => s.seatNumber === seatsInfo.seat);
+        const seat = row.find(s => s.seat === seatsInfo.seat);
         if(seat){
           seat.status = SeatStatus.OCCUPIED;
         }
@@ -83,30 +80,30 @@ export class SeatAreaComponent implements OnInit {
   private generateSeats(rowCount: number, seatsPerSide: number) {
     let seatId = 1;
     for (let i = 0; i < rowCount; i++) {
-      const row = [];
+      const row: Seat[] = [];
 
       for (let j = 0; j < seatsPerSide; j++) {
         row.push({
           id: seatId++,
           status: SeatStatus.AVAILABLE,
-          rowNumber: i + 1,
-          seatNumber: j + 1,
+          row: i + 1,
+          seat: j + 1,
         });
       }
 
       row.push({
         id: -1,
         status: SeatStatus.CORRIDOR,
-        rowNumber: i + 1,
-        seatNumber: -1,
+        row: i + 1,
+        seat: -1,
       });
 
       for (let j = 0; j < seatsPerSide; j++) {
         row.push({
           id: seatId++,
           status: SeatStatus.AVAILABLE,
-          rowNumber: i + 1,
-          seatNumber: j + seatsPerSide + 1,
+          row: i + 1,
+          seat: j + seatsPerSide + 1,
         });
       }
 
