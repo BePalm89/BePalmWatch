@@ -94,6 +94,7 @@ export class BookASeatComponent implements OnChanges {
   }
 
   private updateTicketsPerDayAndTime(selectedDayLabel: string) {
+
     const formattedDate = convertDate(selectedDayLabel);
 
     const showtimePerSelectedDate = this.data?.showtime.find(
@@ -109,6 +110,8 @@ export class BookASeatComponent implements OnChanges {
       ...ticket,
       status: SeatStatus.OCCUPIED,
     }));
+
+    console.log(this.ticketsPerDayAndTime);
 
     this.seatService.setOccupiedSeats(this.ticketsPerDayAndTime);
   }

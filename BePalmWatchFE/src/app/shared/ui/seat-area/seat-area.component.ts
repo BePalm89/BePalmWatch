@@ -1,9 +1,7 @@
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  Input,
   OnInit,
   inject,
 } from "@angular/core";
@@ -24,6 +22,7 @@ import { Seat } from "../../../core/models/seat.model";
 export class SeatAreaComponent implements OnInit {
   private readonly seatService = inject(SeatService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly cd = inject(ChangeDetectorRef);
 
   public readonly ROWS_NUMBER = 11;
   public readonly SEAT_NUMBER_PER_ROW = 5;
@@ -32,7 +31,8 @@ export class SeatAreaComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateSeats(this.ROWS_NUMBER, this.SEAT_NUMBER_PER_ROW);
-    this.markOccupiedSeats() ;
+    this.markOccupiedSeats();
+    this.markSelectedSeats();
   }
 
   public onSelectedSeat(seatId: number) {
@@ -65,16 +65,26 @@ export class SeatAreaComponent implements OnInit {
   }
 
   private markOccupiedSeats() {
-    this.seatService.getOccupiedSeats().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((seats) => {
-      for ( let seatsInfo of seats) {
-        const row = this.seatRows[seatsInfo.row -1];
-        const seat = row.find(s => s.seat === seatsInfo.seat);
-        if(seat){
-          seat.status = SeatStatus.OCCUPIED;
+    this.seatService
+      .getOccupiedSeats()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((seats) => {
+        if(seats) {
+          this.clearSelectedSeats();
+          this.handleStatusSeat(seats, SeatStatus.OCCUPIED);
         }
+      });
+  }
 
-      }
-    })
+  private markSelectedSeats() {
+    this.seatService
+      .getSelectedSeats()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((seats) => {
+        if(seats.length) {
+          this.handleStatusSeat(seats, SeatStatus.SELECTED);
+        }
+      });
   }
 
   private generateSeats(rowCount: number, seatsPerSide: number) {
@@ -109,5 +119,23 @@ export class SeatAreaComponent implements OnInit {
 
       this.seatRows.push(row);
     }
+  };
+
+  private handleStatusSeat(seats: Seat[], status: SeatStatus) {
+    for (let seatsInfo of seats) {
+      const row = this.seatRows[seatsInfo.row - 1];
+      const seat = row.find(s => s.seat === seatsInfo.seat);
+      if(seat) {
+        seat.status = status;
+      }
+    }
+  };
+
+  private clearSelectedSeats() {
+    this.seatRows.flat().forEach(seat => {
+      if(seat.status === SeatStatus.OCCUPIED) {
+        seat.status = SeatStatus.AVAILABLE;
+      }
+    })
   }
 }
