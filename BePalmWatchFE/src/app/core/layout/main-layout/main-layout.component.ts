@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -17,7 +17,6 @@ import { forkJoin } from 'rxjs';
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    MatIconModule,
     MatListModule,
     RouterOutlet,
     RouterModule,
@@ -28,11 +27,11 @@ import { forkJoin } from 'rxjs';
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css',
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit {
 
   private readonly genreService = inject(GenreService);
 
-  constructor() {
+  ngOnInit(): void {
     forkJoin([
       this.genreService.fetchGenreMovies(), 
       this.genreService.fetchGenreTvShows()
