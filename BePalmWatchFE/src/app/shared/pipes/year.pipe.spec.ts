@@ -13,5 +13,10 @@ describe('YearPipe', () => {
 
   it('Should return just the year of the entire date', () => {
     expect(pipe.transform('2024-07-24')).toBe('2024');
-  })
+  });
+
+  it('Should return an empty string if there is not value', () => {
+    expect(pipe.transform('')).toBe('');
+  });
+
 });
