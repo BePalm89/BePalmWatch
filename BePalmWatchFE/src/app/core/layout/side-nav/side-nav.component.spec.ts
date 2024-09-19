@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SideNavComponent } from './side-nav.component';
+import { provideRouter } from '@angular/router';
+import { By } from '@angular/platform-browser';
 
 describe('SideNavComponent', () => {
   let component: SideNavComponent;
@@ -8,7 +10,8 @@ describe('SideNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SideNavComponent]
+      imports: [SideNavComponent],
+      providers: [provideRouter([])]
     })
     .compileComponents();
     
@@ -20,4 +23,9 @@ describe('SideNavComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the correct number of links in the template', () => {
+    const links = fixture.debugElement.queryAll(By.css('li'));
+    expect(links.length).toBe(component.SIDE_BAR_LINKS.length);
+  })
 });
