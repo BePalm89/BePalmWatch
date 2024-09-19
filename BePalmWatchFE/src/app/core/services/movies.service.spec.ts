@@ -108,7 +108,7 @@ describe('MoviesService', () => {
 
     const req = httpController.expectOne((request) => {
       return (
-        request.url === `https://api.themoviedb.org/3/account/10346540/favoritE` &&
+        request.url === `https://api.themoviedb.org/3/account/10346540/favorite` &&
         request.method === "POST",
       request.headers.get("Authorization") ===
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZTU3YTA3NGM5MDM0Zjg0NmJhNTM4ODFhOWVmMWViNyIsIm5iZiI6MTcyNDE0MDA3Ny45MTUwODQsInN1YiI6IjYwNzA4ZGM4Y2MyNzdjMDAyYTgwMGE0ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ck5in_IMa7ZGNC9cz-D1iXLfNDPoWb6MA-72x1ENSyo" &&
