@@ -31,3 +31,7 @@ export const convertDate = (date: string) => {
 
   return parsedDate.format(outputFormat);
 }
+
+export const formattedCardNumber = (value: string): string => {
+ return value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+}

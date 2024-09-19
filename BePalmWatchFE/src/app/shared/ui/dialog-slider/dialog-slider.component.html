@@ -1,3 +1,4 @@
+
 <div class="dialog-container">
   @if( currentStep === 1) {
   <h2>Get the places you want to watch the movie!</h2>
@@ -10,15 +11,21 @@
     <div class="slider-container">
       @if( currentStep === 1 ) {
       <div class="slide" [ngClass]="{ active: currentStep === 1 }">
-        <app-book-a-seat [data]="data"></app-book-a-seat>
+        <app-book-a-seat [data]="movieData" (hasSelectedSeat)="onHasSelectedSeat($event)"></app-book-a-seat>
       </div>
       } @else if ( currentStep === 2) {
       <div class="slide" [ngClass]="{ active: currentStep === 2 }">
-        <app-review-tickets [data]="data"></app-review-tickets>
+        <app-review-tickets
+          [data]="movieData"
+        ></app-review-tickets>
       </div>
       } @else if ( currentStep === 3 ) {
       <div class="slide" [ngClass]="{ active: currentStep === 3 }">
-        <app-pay (formValid)="onFormValid($event)"></app-pay>
+        <app-pay
+          (formValid)="onFormValid($event)"
+          [readyToPay]="readyToPay"
+          [movieData]="movieData"
+        ></app-pay>
       </div>
       }
     </div>
@@ -34,27 +41,23 @@
       <button
         mat-flat-button
         (click)="onNextStep()"
-        [disabled]="!seats.length"
-        [ngClass]="{ disabled: !seats.length }"
+        [disabled]="!canGoToReviewPage"
+        [ngClass]="{ disabled: !canGoToReviewPage }"
       >
         Review
       </button>
       } @else if ( currentStep === 2 ) {
-      <button
-        mat-flat-button
-        (click)="onNextStep()"
-      >Pay Details
-      </button>
+      <button mat-flat-button (click)="onNextStep()">Pay Details</button>
       } @else if ( currentStep === 3 ){
-        <button
+      <button
         mat-flat-button
         (click)="updateMovieAndPay()"
         [disabled]="!isFormValid"
         [ngClass]="{ disabled: !isFormValid }"
-      >Pay 
+      >
+        Pay
       </button>
       }
-
     </div>
   </mat-dialog-actions>
 </div>

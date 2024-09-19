@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { InfoMovieService } from '../../../core/services/info-movie.service';
+import { Component, Input, inject } from '@angular/core';
+import { ShowtimeService } from '../../../core/services/showtime.service';
 
 @Component({
   selector: 'app-hour-selector',
@@ -11,12 +11,13 @@ import { InfoMovieService } from '../../../core/services/info-movie.service';
 })
 export class HourSelectorComponent {
 
-  private readonly infoService = inject(InfoMovieService);
+  @Input() selectedHour: string;
+  private readonly showtimeService = inject(ShowtimeService);
 
   public HOURS: string[] = ['16:00', '18:00', '20:00', '22:00'];
-  public selectedHour = this.HOURS[0];
 
-  constructor () {
+  constructor() {
+    this.selectedHour = this.HOURS[0];
   }
 
   public isSelected(hour: string) {
@@ -25,7 +26,7 @@ export class HourSelectorComponent {
 
   public onSelectHour(hour : string) {
     this.selectedHour = hour;
-    this.infoService.setTime(hour);
+    this.showtimeService.updateTime(hour);
   }
 
 }

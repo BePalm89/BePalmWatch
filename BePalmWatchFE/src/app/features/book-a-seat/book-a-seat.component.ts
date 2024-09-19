@@ -4,25 +4,30 @@ import {
   Component,
   DestroyRef,
   Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
+  Output,
+  ViewChild,
   inject,
+  EventEmitter
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
+import {
+  MatTabChangeEvent,
+  MatTabGroup,
+  MatTabsModule,
+} from "@angular/material/tabs";
 import dayjs from "dayjs";
 import { SeatAreaComponent } from "../../shared/ui/seat-area/seat-area.component";
 import { SeatLegendComponent } from "../../shared/ui/seat-legend/seat-legend.component";
 import { SelectedSeatsComponent } from "../../shared/ui/selected-seats/selected-seats.component";
 import { HourSelectorComponent } from "../../shared/ui/hour-selector/hour-selector.component";
-import { InfoMovieService } from "../../core/services/info-movie.service";
 import { CommonModule } from "@angular/common";
 import { Seat } from "../../core/models/seat.model";
 import { convertDate } from "../../shared/utility/utils";
-import { SeatStatus } from "../../core/enum/seat-status.enum";
-import { SeatService } from "../../core/services/seat.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { ShowtimeService } from "../../core/services/showtime.service";
+import { Showtime, Ticket } from "../../core/models/showtime.model";
+import { BehaviorSubject, distinctUntilChanged, map } from "rxjs";
+
 
 @Component({
   selector: "app-book-a-seat",
@@ -39,45 +44,93 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   templateUrl: "./book-a-seat.component.html",
   styleUrl: "./book-a-seat.component.css",
 })
-export class BookASeatComponent implements OnChanges {
-  private readonly infoService = inject(InfoMovieService);
-  private readonly seatService = inject(SeatService);
+export class BookASeatComponent implements AfterViewInit {
+  public readonly showtimeService = inject(ShowtimeService);
   private readonly cd = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
 
+  @ViewChild("tabGroup") tabGroup!: MatTabGroup;
   @Input() data!: any;
+  @Output() hasSelectedSeat = new EventEmitter<boolean>(false);
 
   public tabTitles: string[] = [];
-  public ticketsPerDayAndTime: Seat[] = [];
-  public time = "";
   public HOURS: string[] = ["16:00", "18:00", "20:00", "22:00"];
-  public date = "";
+  public occupiedSeats = new BehaviorSubject<Seat[]>([]);
+  public selectedSeatsList: Seat[] = [];
 
   constructor() {
     this.generateDays();
   }
 
-  ngOnChanges(): void {
-    this.infoService
-      .getTime()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((time) => {
-        this.time = time;
-        this.date = this.date ? this.date : this.infoService.getDay();
-        this.cd.detectChanges();
-        this.updateTicketsPerDayAndTime(this.date);
-        this.updateSelectedDayContent(this.date);
+  ngAfterViewInit(): void {
+    this.selectTabForDate();
+
+    this.showtimeService
+      .getShowtimeSubject()
+      .pipe(
+        map((showtime) => ({ date: showtime.date, time: showtime.time })),
+        distinctUntilChanged(
+          (prev, curr) => prev.date === curr.date && prev.time === curr.time
+        ),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((showtime) => {
+
+        const tickets = this.showtimeService.getTicket();
+        const hasAllTicketTheSameDateAndTimeSet = tickets.every(t => t.date === showtime.date && t.time === showtime.time);
+
+        if(!hasAllTicketTheSameDateAndTimeSet) {
+          this.selectedSeatsList = [];
+          this.showtimeService.setSelectedSeat([]);
+          this.hasSelectedSeat.emit(false);
+        } else if (tickets.length){
+          this.selectedSeatsList = this.showtimeService.getTicket();
+          this.hasSelectedSeat.emit(true);
+        }
+        
+        this.updateOccupiedSeatPerDateAndTime(showtime.date, showtime.time);
       });
+  }
+
+
+  public selectedTabValue(event: MatTabChangeEvent) {
+    const dateLabel = event.tab.textLabel;
+
+    this.showtimeService.updateDate(dateLabel);
+
     this.cd.detectChanges();
   }
 
-  public selectedTabValue(event: MatTabChangeEvent) {
-    this.date = event.tab.textLabel;
-    const dateLabel = event.tab.textLabel;
-    this.infoService.setDay(dateLabel);
+  public onSelectedSeatChange(selectedSeat: Seat[]) {
+    const tickets: Ticket[] = selectedSeat.map((seat: any) => {
+      return {
+        ...seat,
+        time: this.showtimeService.getShowtime().time,
+        date: this.showtimeService.getShowtime().date,
+        price: 9.50
+      };
+    });
 
-    this.updateTicketsPerDayAndTime(dateLabel);
-    this.updateSelectedDayContent(dateLabel);
+    if(tickets.length) {
+      this.hasSelectedSeat.emit(true);
+    } else {
+      this.hasSelectedSeat.emit(false);
+    }
+    this.showtimeService.setSelectedSeat(tickets);
+  }
+
+  private updateOccupiedSeatPerDateAndTime(date: string, time: string) {
+    const formattedDate = convertDate(date);
+
+    const showtimePerSelectedDate = this.data?.showtime.find(
+      (showtime: any) => showtime.date === formattedDate
+    );
+
+    const showtimePerSelectedTime = showtimePerSelectedDate?.times.find(
+      (showtime: any) => showtime.time === time
+    );
+
+    this.occupiedSeats.next(showtimePerSelectedTime?.tickets || []);
 
     this.cd.detectChanges();
   }
@@ -93,36 +146,13 @@ export class BookASeatComponent implements OnChanges {
     }
   }
 
-  private updateTicketsPerDayAndTime(selectedDayLabel: string) {
-
-    const formattedDate = convertDate(selectedDayLabel);
-
-    const showtimePerSelectedDate = this.data?.showtime.find(
-      (showtime: any) => showtime.date === formattedDate
-    );
-    const showtimePerSelectedTime = showtimePerSelectedDate?.times.find(
-      (showtime: any) => showtime.time === this.time
-    );
-
-    const tickets = showtimePerSelectedTime?.tickets || [];
-
-    this.ticketsPerDayAndTime = tickets.map((ticket: any) => ({
-      ...ticket,
-      status: SeatStatus.OCCUPIED,
-    }));
-
-    console.log(this.ticketsPerDayAndTime);
-
-    this.seatService.setOccupiedSeats(this.ticketsPerDayAndTime);
-  }
-
-  private updateSelectedDayContent(selectedDayLabel: string) {
-    //const selectedDay = this.days.find((day) => day.label === selectedDayLabel);
-    /*     if (selectedDay) {
-      selectedDay.content = this.ticketsPerDayAndTime.map((ticket) => ({
-        ...ticket,
-        status: SeatStatus.OCCUPIED,
-      }));
-    } */
+  private selectTabForDate() {
+    const { date } = this.showtimeService.getShowtime();
+    if (this.tabGroup && this.tabTitles.length) {
+      const index = this.tabTitles.indexOf(date);
+      if (index !== -1) {
+        this.tabGroup.selectedIndex = index;
+      }
+    }
   }
 }
