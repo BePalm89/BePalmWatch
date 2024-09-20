@@ -31,14 +31,14 @@ export class CardComponent {
 
   get title(): string {
     return this.type === MediaTypeEnum.MOVIE || this.type === MediaTypeEnum.NOW_PLAYING
-      ? (this.data as Movie).title
-      : (this.data as TvShow).name;
+      ? (this.data as Movie)?.title
+      : (this.data as TvShow)?.name;
   }
 
   get releaseYear(): string {
     return this.type === MediaTypeEnum.MOVIE || this.type === MediaTypeEnum.NOW_PLAYING
-      ? (this.data as Movie).release_date
-      : (this.data as TvShow).first_air_date;
+      ? (this.data as Movie)?.release_date
+      : (this.data as TvShow)?.first_air_date;
   }
 
   public getImageUrl(path: string) {

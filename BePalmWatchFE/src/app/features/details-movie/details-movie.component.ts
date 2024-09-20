@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { DetailsCardComponent } from "../../shared/ui/details-card/details-card.component";
 import { MediaTypeEnum } from "../../core/enum/media-type.enum";
 import { NowPlayingService } from "../../core/services/now-playing.service";
+import { TvService } from "../../core/services/tv.service";
 
 @Component({
   selector: "app-details-movie",
@@ -14,6 +15,7 @@ import { NowPlayingService } from "../../core/services/now-playing.service";
 })
 export class DetailsMovieComponent {
   private readonly movieService = inject(MoviesService);
+  private readonly tvShowService = inject(TvService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly nowPlayingService = inject(NowPlayingService);
@@ -33,10 +35,9 @@ export class DetailsMovieComponent {
           this.movieDetails = {
             ...resp,
             original_language: this.getLanguageName(resp.original_language),
-
-          }
+          };
         });
-    } else {
+    } else if (this.type === MediaTypeEnum.MOVIE) {
       this.movieService.getDetailsMovie(this.id).subscribe((data) => {
         const genresName = data.genres.map((genre: any) => genre.name);
         this.movieDetails = {
@@ -45,6 +46,18 @@ export class DetailsMovieComponent {
           original_language: this.getLanguageName(data.original_language),
         };
       });
+    } else if( this.type === MediaTypeEnum.TV_SHOW) {
+      this.tvShowService.getDetailsTvShow(this.id).subscribe((data) => {
+        const genresName = data.genres.map((genre: any) => genre.name);
+        this.movieDetails = {
+          ...data,
+          title: data.name,
+          release_date: data.first_air_date,
+          genres: genresName,
+          original_language: this.getLanguageName(data.original_language),
+        };
+      })
+
     }
   }
 

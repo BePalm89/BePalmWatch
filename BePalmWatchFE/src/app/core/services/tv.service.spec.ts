@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { TvService } from './tv.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { FAVOTIRE_TV_SHOW, TV_SHOW } from '../mocks/tv.mock';
+import { DETAIL_TV_SHOW, FAVORITE_TV_SHOW, TV_SHOW } from '../mocks/tv.mock';
 
 describe('TvService', () => {
   let service: TvService;
@@ -48,7 +48,7 @@ describe('TvService', () => {
   });
 
   it('should call getFavoriteTvShow with correct url, params and header and return an array of favorite tv shows', () => {
-    const mockResponse = FAVOTIRE_TV_SHOW;
+    const mockResponse = FAVORITE_TV_SHOW;
 
     service.getFavoriteTvShow().subscribe((response) => {
       expect(response).toEqual(mockResponse);
@@ -97,6 +97,27 @@ describe('TvService', () => {
     });
 
     req.flush({});
+  });
+
+  it('should call getDetailsTvShow with correct url, params and header and return the details of a movies', () => {
+    const mockResponse = DETAIL_TV_SHOW;
+
+    service.getDetailsTvShow(mockResponse.id).subscribe((response) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpController.expectOne((request) => {
+      return (
+        request.url === `https://api.themoviedb.org/3/TV/${mockResponse.id}` &&
+        request.method === "GET",
+      request.headers.get("Authorization") ===
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZTU3YTA3NGM5MDM0Zjg0NmJhNTM4ODFhOWVmMWViNyIsIm5iZiI6MTcyNDE0MDA3Ny45MTUwODQsInN1YiI6IjYwNzA4ZGM4Y2MyNzdjMDAyYTgwMGE0ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ck5in_IMa7ZGNC9cz-D1iXLfNDPoWb6MA-72x1ENSyo" &&
+        request.params.has("language") &&
+        request.params.get("language") === "en-US"
+      );
+    });
+
+    req.flush(mockResponse);
   });
 
 });
