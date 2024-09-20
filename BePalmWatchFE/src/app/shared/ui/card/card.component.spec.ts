@@ -181,6 +181,25 @@ describe("CardComponent", () => {
     });
   });
 
+  it("should return a successfull message when the add favorite is called", () => {
+    // Given
+    const consoleSpy = jest.spyOn(console, "log");
+    jest.spyOn(component["movieService"], "addFavorite").mockReturnValue({
+      subscribe: (callback: Function) => {
+        callback(); // Manually invoke the callback to simulate a successful HTTP response
+      },
+    } as any);
+
+    // When
+    component.toggleFavorite(1);
+
+    // Then
+    expect(consoleSpy).toHaveBeenCalledWith("success movie");
+
+    // Clean up the console spy
+    consoleSpy.mockRestore();
+  });
+
   it("should correctly display the image with the correct alt text", () => {
     const imgElement = fixture.debugElement.query(
       By.css(".card-img-container img")
@@ -202,18 +221,18 @@ describe("CardComponent", () => {
     expect(releaseYearElement.textContent).toBe("2023");
   });
 
-  it('should correctly display genres', () => {
-    const genresElement = fixture.debugElement.queryAll(By.css('.genres-container p'));
+  it("should correctly display genres", () => {
+    const genresElement = fixture.debugElement.queryAll(
+      By.css(".genres-container p")
+    );
 
     expect(genresElement.length).toBe(2);
-    expect(genresElement[0].nativeElement.textContent).toContain('Action');
-    expect(genresElement[1].nativeElement.textContent).toContain('Sci-fi');
+    expect(genresElement[0].nativeElement.textContent).toContain("Action");
+    expect(genresElement[1].nativeElement.textContent).toContain("Sci-fi");
   });
 
-  it('should correctly navigate to the route clicking on view more button', () => {
-
-    const viewMoreLink = fixture.debugElement.query(By.css('a')).nativeElement;
-    expect(viewMoreLink.getAttribute('href')).toContain('/movie/1');
-
-  })
+  it("should correctly navigate to the route clicking on view more button", () => {
+    const viewMoreLink = fixture.debugElement.query(By.css("a")).nativeElement;
+    expect(viewMoreLink.getAttribute("href")).toContain("/movie/1");
+  });
 });
