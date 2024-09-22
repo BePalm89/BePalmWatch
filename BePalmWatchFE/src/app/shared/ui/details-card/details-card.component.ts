@@ -28,7 +28,7 @@ export class DetailsCardComponent {
 
 
   public openBookSeatModal() {
-
+    
     const dialogRef = this.dialog.open(DialogSliderComponent, {
       data: this.movieDetails
     });
