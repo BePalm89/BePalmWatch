@@ -43,9 +43,7 @@
         (click)="onNextStep()"
         [disabled]="!canGoToReviewPage"
         [ngClass]="{ disabled: !canGoToReviewPage }"
-      >
-        Review
-      </button>
+      >Review</button>
       } @else if ( currentStep === 2 ) {
       <button mat-flat-button (click)="onNextStep()">Pay Details</button>
       } @else if ( currentStep === 3 ){
@@ -54,9 +52,7 @@
         (click)="updateMovieAndPay()"
         [disabled]="!isFormValid"
         [ngClass]="{ disabled: !isFormValid }"
-      >
-        Pay
-      </button>
+      >Pay</button>
       }
     </div>
   </mat-dialog-actions>
