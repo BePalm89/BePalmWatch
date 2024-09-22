@@ -4,14 +4,14 @@
   @for( seat of (selectedSeatsList); track seat){
   <div class="selected-seats-info">
     <p>
-      Row <span>{{ seat.row }}</span>
+      Row <span data-test="seat-row">{{ seat.row }}</span>
     </p>
     <p>
-      Seat <span>{{ seat.seat }}</span>
+      Seat <span data-test="seat-seat">{{ seat.seat }}</span>
     </p>
   </div>
   }
 </div>
 } @else {
-  <p>Selection of seats ( maximum: 6 )</p>
+  <p data-test="no-seats">Selection of seats ( maximum: 6 )</p>
 } 
