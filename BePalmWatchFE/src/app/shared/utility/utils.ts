@@ -1,21 +1,22 @@
 import dayjs from "dayjs";
 
-export const mapMediaWithGenres = (movies: any[], genreIds: { [key: number]: string} ) => { 
+export const mapMediaWithGenres = (
+  movies: any[],
+  genreIds: { [key: number]: string }
+) => {
+  return movies.map((movie: any) => {
+    return {
+      ...movie,
+      genres: movie.genre_ids?.map((id: number) => genreIds[id]),
+    };
+  });
+};
 
-    return movies.map((movie: any) => {
-        return {
-          ...movie,
-          genres: movie.genre_ids?.map((id: number) => genreIds[id])
-        }
-      })
+const IMAGE_BASE_URL: string = "https://image.tmdb.org/t/p/";
 
-}
-
-const IMAGE_BASE_URL: string = 'https://image.tmdb.org/t/p/';
-
-export const getImageUrl = (path: string, size: string = 'w400') => {
+export const getImageUrl = (path: string, size: string = "w400") => {
   return `${IMAGE_BASE_URL}${size}/${path}`;
-} 
+};
 
 export const convertDate = (date: string) => {
   const inputFormat = "ddd, DD.MM";
@@ -30,8 +31,11 @@ export const convertDate = (date: string) => {
   }
 
   return parsedDate.format(outputFormat);
-}
+};
 
 export const formattedCardNumber = (value: string): string => {
- return value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
-}
+  return value
+    .replace(/\D/g, "")
+    .replace(/(.{4})/g, "$1 ")
+    .trim();
+};

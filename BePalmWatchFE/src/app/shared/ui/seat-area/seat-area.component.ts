@@ -1,8 +1,5 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
-  DestroyRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -15,7 +12,6 @@ import { CommonModule } from "@angular/common";
 import { SeatComponent } from "../seat/seat.component";
 import { SeatStatus } from "../../../core/enum/seat-status.enum";
 import { Seat } from "../../../core/models/seat.model";
-import { ShowtimeService } from "../../../core/services/showtime.service";
 import { BehaviorSubject } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FormsModule } from "@angular/forms";
@@ -94,6 +90,7 @@ export class SeatAreaComponent implements OnInit, OnChanges {
 
   private generateSeats(rowCount: number, seatsPerSide: number) {
     let seatId = 1;
+    this.seatRows = [];
     for (let i = 0; i < rowCount; i++) {
       const row: Seat[] = [];
 
@@ -121,7 +118,7 @@ export class SeatAreaComponent implements OnInit, OnChanges {
           seat: j + seatsPerSide + 1,
         });
       }
-
+      
       this.seatRows.push(row);
     }
   }

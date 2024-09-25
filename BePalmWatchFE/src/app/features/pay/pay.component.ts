@@ -188,6 +188,9 @@ export class PayComponent implements OnInit {
 
     const formattedDate = convertDate(date);
 
+    console.log(date);
+    console.log(formattedDate);
+
     return {
       showtime: [
         {
