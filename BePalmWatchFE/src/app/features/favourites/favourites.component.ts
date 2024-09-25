@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MoviesService } from '../../core/services/movies.service';
 import { GenreService } from '../../core/services/genre.service';
 import { mapMediaWithGenres } from '../../shared/utility/utils';
@@ -14,7 +14,7 @@ import { MediaTypeEnum } from '../../core/enum/media-type.enum';
   templateUrl: './favourites.component.html',
   styleUrl: './favourites.component.css'
 })
-export class FavouritesComponent {
+export class FavouritesComponent implements OnInit{
 
   private readonly movieService = inject(MoviesService);
   private readonly genreService = inject(GenreService);
@@ -24,7 +24,7 @@ export class FavouritesComponent {
   favoriteTvShow: any[] = [];
   mediaType = MediaTypeEnum;
 
-  constructor() {
+  ngOnInit(): void {
     const mappedGenreMovies = this.genreService.getGenreMovie();
     const mappedGenreTvShow = this.genreService.getGenreTvShow();
 
