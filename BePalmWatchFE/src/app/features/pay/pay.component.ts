@@ -27,7 +27,6 @@ import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
-  provideNativeDateAdapter,
 } from "@angular/material/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { BehaviorSubject } from "rxjs";
@@ -109,16 +108,20 @@ export class PayComponent implements OnInit {
     this.createForm();
     this.handleFormValid();
     this.handlePayment();
+    this.handleCardNumberFormatter();
   }
 
-  setMonthAndYear(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+  public setMonthAndYear(
+    normalizedMonth: Moment,
+    datepicker: MatDatepicker<Moment>
+  ) {
     const ctrlValue = this.paymentForm.get("expirationDate")?.value;
     ctrlValue.month(normalizedMonth.month());
     this.paymentForm.get("expirationDate")?.setValue(ctrlValue);
     datepicker.close();
   }
 
-  chosenYearHandler(normalizedYear: Moment) {
+  public chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.paymentForm.get("expirationDate")?.value;
     ctrlValue?.year(normalizedYear.year());
     this.paymentForm.get("expirationDate")?.setValue(ctrlValue);
@@ -134,7 +137,9 @@ export class PayComponent implements OnInit {
       expirationDate: new FormControl(moment(), [Validators.required]),
       cvv: new FormControl(null, [Validators.required, maxNumberOfDigit(3)]),
     });
+  }
 
+  private handleCardNumberFormatter() {
     this.paymentForm
       .get("cardNumber")
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
@@ -165,12 +170,13 @@ export class PayComponent implements OnInit {
 
           const payload = this.createPayload();
 
-          this.nowPlayingService.updateNowPlayingMovie(_id, payload).subscribe(() => {
+          this.nowPlayingService
+            .updateNowPlayingMovie(_id, payload)
+            .subscribe(() => {
+              this.dialogRef.close();
 
-            this.dialogRef.close();
-
-            this.route.navigate(["/now-playing"]);
-          });
+              this.route.navigate(["/now-playing"]);
+            });
         }
       });
   }
@@ -187,9 +193,6 @@ export class PayComponent implements OnInit {
     });
 
     const formattedDate = convertDate(date);
-
-    console.log(date);
-    console.log(formattedDate);
 
     return {
       showtime: [

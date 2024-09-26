@@ -16,7 +16,7 @@ describe("DialogSliderComponent", () => {
 
   beforeEach(async () => {
     matDialogRefMock = {
-      close: jest.fn(), // mock the close function
+      close: jest.fn(),
     } as unknown as jest.Mocked<MatDialogRef<DialogSliderComponent>>;
 
     await TestBed.configureTestingModule({
@@ -27,8 +27,8 @@ describe("DialogSliderComponent", () => {
         HttpClientTestingModule,
       ],
       providers: [
-        { provide: MatDialogRef, useValue: matDialogRefMock }, // Provide the mock
-        { provide: MAT_DIALOG_DATA, useValue: {} }, // Mock MAT_DIALOG_DATA if needed
+        { provide: MatDialogRef, useValue: matDialogRefMock }, 
+        { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
     }).compileComponents();
 
