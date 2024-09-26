@@ -35,7 +35,7 @@ export class ReviewTicketsComponent implements OnInit {
 
   public getLanguageName(languageCode: string) {
     const displayName = new Intl.DisplayNames(["en"], { type: "language" });
-    return displayName.of(languageCode) || languageCode;
+    return displayName.of(languageCode) ?? languageCode;
   }
 
   public getTotalCost() {
