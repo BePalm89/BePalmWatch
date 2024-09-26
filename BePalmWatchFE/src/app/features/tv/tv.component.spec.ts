@@ -49,7 +49,7 @@ describe('TvComponent', () => {
   });
 
 
-  it('should call getTVShows and getGenreTvShow on init and set tvShows', () => {
+  it('should call getTVShows and getGenreTvShow when loading the component', () => {
 
     expect(genreService.getGenreTvShow).toHaveBeenCalled();
     expect(tvService.getTVShows).toHaveBeenCalled();

@@ -48,10 +48,10 @@ describe('FavouritesComponent', () => {
 
   it('should populate favoriteMovies and favoriteTvShow correctly when services return data', () => {
     // Given
-    const mockMovieGenres = { 1: 'Action', 2: 'Drama' }; // Mock genre data
+    const mockMovieGenres = { 1: 'Action', 2: 'Drama' };
     const mockTvGenres = { 3: 'Comedy', 4: 'Documentary' };
-    const mockFavoriteMovies = { results: [{ id: 1, genre_ids: [1, 2] }] }; // Mocked movie data
-    const mockFavoriteTvShows = { results: [{ id: 2, genre_ids: [3] }] }; // Mocked tv show data
+    const mockFavoriteMovies = { results: [{ id: 1, genre_ids: [1, 2] }] };
+    const mockFavoriteTvShows = { results: [{ id: 2, genre_ids: [3] }] };
 
     jest.spyOn(genreService, 'getGenreMovie').mockReturnValue(mockMovieGenres);
     jest.spyOn(genreService, 'getGenreTvShow').mockReturnValue(mockTvGenres);
