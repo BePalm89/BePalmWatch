@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { MoviesService } from "../../core/services/movies.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DetailsCardComponent } from "../../shared/ui/details-card/details-card.component";
@@ -13,7 +13,7 @@ import { TvService } from "../../core/services/tv.service";
   templateUrl: "./details-movie.component.html",
   styleUrl: "./details-movie.component.css",
 })
-export class DetailsMovieComponent {
+export class DetailsMovieComponent implements OnInit {
   private readonly movieService = inject(MoviesService);
   private readonly tvShowService = inject(TvService);
   private readonly route = inject(ActivatedRoute);
@@ -28,6 +28,9 @@ export class DetailsMovieComponent {
     const navigation = this.router.getCurrentNavigation();
     this.type = navigation?.extras.state?.["type"] ?? "";
 
+  }
+  ngOnInit(): void {
+    
     if (this.type === MediaTypeEnum.NOW_PLAYING) {
       this.nowPlayingService
         .getNowPlayingMovieById(this.route.snapshot.paramMap.get("id") ?? "")
@@ -57,12 +60,11 @@ export class DetailsMovieComponent {
           original_language: this.getLanguageName(data.original_language),
         };
       })
-
     }
   }
 
   public getLanguageName(languageCode: string) {
     const displayName = new Intl.DisplayNames(["en"], { type: "language" });
-    return displayName.of(languageCode) || languageCode;
+    return displayName.of(languageCode) ?? languageCode;
   }
 }
