@@ -126,7 +126,7 @@ export class SeatAreaComponent implements OnInit, OnChanges {
   private handleStatusSeat(seats: Seat[], status: SeatStatus) {
     for (let seatsInfo of seats) {
       const row = this.seatRows[seatsInfo.row - 1];
-      const seat = row.find((s) => s.seat === seatsInfo.seat);
+      const seat = row?.find((s) => s.seat === seatsInfo.seat) ?? null;
       if (seat) {
         seat.status = status;
       }
