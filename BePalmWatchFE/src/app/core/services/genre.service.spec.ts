@@ -52,8 +52,6 @@ describe("GenreService", () => {
     // Given 
     const genreData = GENRE_MOVIE;
 
-    console.log(genreData);
-
     // When
     service.setGenreMovie(genreData);
 
@@ -95,8 +93,6 @@ describe("GenreService", () => {
   it('should set genre TV correctly when using the setGenreTvShow', () => {
     // Given 
     const genreData = GENRE_TV_SHOW;
-
-    console.log(genreData);
 
     // When
     service.setGenreTvShow(genreData);

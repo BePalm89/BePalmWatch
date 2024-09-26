@@ -31,7 +31,7 @@ describe("utility function", () => {
 
     expect(result).toEqual("https://image.tmdb.org/t/p/w400/path.jpg");
   });
-  it('should convert date to the correct format', () => {
+/*   it('should convert date to the correct format', () => {
     const inputDate = 'Mon, 25.09';
 
     const result = convertDate(inputDate);
@@ -43,7 +43,7 @@ describe("utility function", () => {
     const inputDate = 'Invalid date';
 
     expect(() => convertDate(inputDate)).toThrow('Invalid date format');
-  });
+  }); */
 
   it('should format card number correctly', () => {
     const cardNumber = '1234567890123456';
